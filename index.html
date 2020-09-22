@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map</title>
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .container {
+      width: 701px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .cell {
+      width: 6px;
+      height: 6px;
+      background-color: lightgrey;
+      border-bottom: 1px solid white;
+      border-right: 1px solid white;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <ul>
+    <li>move cursor (slowly) with left mouse key to paint walls</li>
+    <li>move cursor (slowly) with right mouse key to erease walls</li>
+    <li>Red dot is sart point</li>
+    <li>Blue dos is finish point</li>
+    <li>Click search button to start searching</li>
+  </ul>
+  <button id="btnSave">Save map</button>
+  <button id="btnLoadSaved">Load saved map</button>
+  <button id="btnClear">Clear map</button>
+  <button id="btnSearch">Search blud point</button>
+  <p id="info"></p>
+  <div class="map-container">
+
+  </div>
+
+</body>
+</html>
+<script type="module" src="./script.js"></script>
+
