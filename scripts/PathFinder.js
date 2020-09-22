@@ -59,12 +59,14 @@ export default class PathFinder extends MapEditor {
         const path = [];
 
         // 到达终点 开始通过记录的前驱节点反向推导出路径
+        const pathColor = optimise ? 'orange' : 'purple'
         while(x !== this.startPoint[0] || y !== this.startPoint[1]) {
           const index = this.getMapIndex(x, y);
           path.push(this.mapArray[index]);
           [x, y] = table[index];
           await this.sleep(30);
-          this.container.children[index].style.backgroundColor = 'orange';
+          
+          this.container.children[index].style.backgroundColor = pathColor;
         }
 
         return path;

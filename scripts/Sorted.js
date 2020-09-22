@@ -26,7 +26,7 @@ export default class Sorted {
     this.data.push(val);
   }
 
-  length() {
+  get length() {
     return this.data.length;
   }
 }

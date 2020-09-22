@@ -32,9 +32,16 @@ body {
   cursor: pointer;
 }
 
-#btnSearch {
+#btnOptimise {
+  background-color: orange;
   width: 200px;
 }
+
+#btnBFS {
+  background-color: purple;
+  width: 200px;
+}
+
 
 .btn:focus {
   outline: none;
