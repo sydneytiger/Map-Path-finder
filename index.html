@@ -4,49 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Map</title>
-  <style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    .container {
-      width: 701px;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-
-    .cell {
-      width: 6px;
-      height: 6px;
-      background-color: lightgrey;
-      border-bottom: 1px solid white;
-      border-right: 1px solid white;
-      vertical-align: middle;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <ul>
-    <li>move cursor (slowly) with left mouse key to paint walls</li>
-    <li>move cursor (slowly) with right mouse key to erease walls</li>
-    <li>Red dot is sart point</li>
-    <li>Blue dos is finish point</li>
-    <li>Click search button to start searching</li>
-  </ul>
-  <button id="btnSave">Save map</button>
-  <button id="btnLoadSaved">Load saved map</button>
-  <button id="btnClear">Clear map</button>
-  <button id="btnSearch">Search blud point</button>
-  <label for="showProcess">show search process</label>
-  <input type="checkbox" name="showProcess" id="showProcess">
-  <p id="info"></p>
-  <div class="map-container">
-
-  </div>
-
+  <div>
+    <ul>
+      <li>move cursor (slowly) with left mouse key to paint walls</li>
+      <li>move cursor (slowly) with right mouse key to clear walls</li>
+      <li>Red dot is sarting point</li>
+      <li>Blue dot is finishing point</li>
+      <li>Click search button to start searching</li>
+    </ul>
+    <ul class="btn-list">
+      <li><button id="btnSave" class="btn">Save map</button></li>
+      <li><button id="btnLoadSaved" class="btn">Load map</button></li>
+      <li><button id="btnClear" class="btn">Clear map</button></li>
+      <li>
+        <label for="showProcess">show search process</label>
+        <input type="checkbox" name="showProcess" id="showProcess">
+      </li>
+      <li><button id="btnSearch" class="btn">Search</button></li>
+    </ul>
+    
+  </div>  
+  <div class="map-container"></div>
 </body>
 </html>
-<script type="module" src="./script.js"></script>
+<script type="module" src="./scripts/script.js"></script>
 
