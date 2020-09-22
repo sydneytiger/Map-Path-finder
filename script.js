@@ -4,12 +4,13 @@ const btnSearch = document.querySelector('#btnSearch');
 const btnSave = document.querySelector('#btnSave');
 const btnLoadSaved = document.querySelector('#btnLoadSaved');
 const btnClear = document.querySelector('#btnClear');
+const showProcess = document.querySelector('#showProcess');
 const mapContainer = document.querySelector('.map-container');
 
 const finder = new PathFinder(100);
 finder.start = [10, 10];
 finder.end = [80, 80];
-finder.showProcess = true;
+finder.showProcess = showProcess.checked;
 
 
 document.addEventListener('mousedown', e => {
@@ -34,6 +35,9 @@ btnClear.addEventListener('click', () => {
   finder.initMapArray();
   mapContainer.innerHTML = '';
   mapContainer.appendChild(finder.render());
+});
+showProcess.addEventListener('click', e => {
+  finder.showProcess = e.target.checked;
 });
 
 mapContainer.appendChild(finder.render());
