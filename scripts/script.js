@@ -1,6 +1,7 @@
 import PathFinder from './PathFinder.js';
 
-const btnSearch = document.querySelector('#btnSearch');
+const btnBFS = document.querySelector('#btnBFS');
+const btnOptimise = document.querySelector('#btnOptimise');
 const btnSave = document.querySelector('#btnSave');
 const btnLoadSaved = document.querySelector('#btnLoadSaved');
 const btnClear = document.querySelector('#btnClear');
@@ -20,7 +21,8 @@ document.addEventListener('mousedown', e => {
 document.addEventListener('mouseup', () => finder.mouseDown = false);
 document.addEventListener('contextmenu', e => e.preventDefault());
 
-btnSearch.addEventListener('click', () => finder.findPath());
+btnBFS.addEventListener('click', () => finder.findPath());
+btnOptimise.addEventListener('click', () => finder.findPath(true));
 btnSave.addEventListener('click', () => {
   localStorage['map'] = JSON.stringify(finder.map);
 });

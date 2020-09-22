@@ -1,4 +1,5 @@
 import MapEditor from './MapEditor.js';
+import Sorted from './Sorted.js';
 
 export default class PathFinder extends MapEditor {
   constructor(dimension = 100){
@@ -12,6 +13,10 @@ export default class PathFinder extends MapEditor {
     });
   }
 
+  distance(point){
+    return (point[0] - this.endPoint[0]) ** 2 + (point[1] - this.endPoint[1]) ** 2;
+  }
+
   async searchProcess(index) {
     // 寻址过程渲染
     await this.sleep(30);
@@ -22,9 +27,12 @@ export default class PathFinder extends MapEditor {
     }
   }
 
-  async findPath() {
+  async findPath(optimise = false) {
     const table = Object.create(this.mapArray);
-    const queue = [this.startPoint];
+
+    const queue = optimise 
+      ? new Sorted([this.startPoint], (a, b) => this.distance(a) - this.distance(b)) 
+      : [this.startPoint];
 
     const insert = async (x, y, prev) => {
       const index = this.getMapIndex(x, y);
