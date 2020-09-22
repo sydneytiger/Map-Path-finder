@@ -98,13 +98,17 @@ export default class MapEditor {
     // paint the start point
     if(this.startPoint && this.startPoint.length >= 2) {
       const startIndex = this.getMapIndex(this.startPoint[0], this.startPoint[1]);
-      this.container.children[startIndex].style.backgroundColor = 'red';
+      const startDot = this.container.children[startIndex];
+      startDot.style.backgroundColor = 'red';
+      startDot.setAttribute('nopaint', true);
     }
 
     // paint the end point
     if(this.endPoint) {
       const endIndex = this.getMapIndex(this.endPoint[0], this.endPoint[1]);
-      this.container.children[endIndex].style.backgroundColor = 'blue';
+      const endDot = this.container.children[endIndex];
+      endDot.style.backgroundColor = 'blue';
+      endDot.setAttribute('nopaint', true);
     }
 
     return this.container;

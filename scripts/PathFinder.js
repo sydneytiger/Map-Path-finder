@@ -17,13 +17,14 @@ export default class PathFinder extends MapEditor {
     return (point[0] - this.endPoint[0]) ** 2 + (point[1] - this.endPoint[1]) ** 2;
   }
 
-  async searchProcess(index) {
+  async searchProcess(index, optimse) {
+    const color = optimse ? 'lightskyblue' : 'lightgreen'
     // 寻址过程渲染
     await this.sleep(30);
     const point = this.container.children[index];
 
-    if(point.style.backgroundColor === '') {
-      point.style.backgroundColor = 'lightgreen';
+    if(!point.getAttribute('nopaint')) {
+      point.style.backgroundColor = color;
     }
   }
 
@@ -41,7 +42,7 @@ export default class PathFinder extends MapEditor {
       // 障碍物检测
       if(table[index]) return;
 
-      if(this.showProcess) this.searchProcess(index);
+      if(this.showProcess) this.searchProcess(index, optimise);
 
       // 寻址标记前驱节点 避免重复寻找
       table[index] = prev;
@@ -65,8 +66,10 @@ export default class PathFinder extends MapEditor {
           path.push(this.mapArray[index]);
           [x, y] = table[index];
           await this.sleep(30);
-          
-          this.container.children[index].style.backgroundColor = pathColor;
+          const pathDot = this.container.children[index];
+          if(!pathDot.getAttribute('nopaint')) {
+            pathDot.style.backgroundColor = pathColor;
+          }
         }
 
         return path;
