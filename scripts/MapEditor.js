@@ -51,6 +51,49 @@ export default class MapEditor {
     return this.dimension * y + x;
   }
 
+  /* 
+    paint a cell with color by cell type
+    cell type:
+    start           => level 0
+    end             => level 0
+    wall            => level 0
+    bfsPath         => level 1
+    optiomisePath   => level 1
+    bfsSearch       => level 2
+    optimiseSearch  => level 2
+
+    high level cannot overwrite low level color
+  */
+  paintCell(cell, cellType) {
+    const cellTypes = {
+      start: { color: 'red', level: 0 },
+      end: { color: 'blue', level: 0 },
+      wall: { color: 'black', level: 0 },
+      bfsSearch: { color: 'lightgreen', level: 3 },
+      bfsPath: { color: 'purple', level: 1 },
+      optimisePath: { color: 'orange', level: 1 },
+      optimiseSearch: { color: 'lightskyblue', level: 2 },
+      empty: { color: 'lightgrey', level: 999 }
+    }
+
+    const nextType = cellTypes[cellType];
+    if(!nextType) return;
+    
+    const prevType = cellTypes[cell.getAttribute('cell-type')];
+
+    if(!prevType) {
+      cell.setAttribute('cell-type', cellType);
+      cell.style.backgroundColor = nextType.color;
+    } else {
+      if(nextType.level < prevType.level) {
+        cell.setAttribute('cell-type', cellType);
+        cell.style.backgroundColor = nextType.color;
+      } else if(nextType.level === prevType.level && prevType.level === 1) {
+        cell.style.backgroundColor = 'yellow';
+      }
+    }
+  }
+
   /*
     Creates a a single dot in map.
     0 => empty
@@ -65,16 +108,18 @@ export default class MapEditor {
     const mapIndex = this.getMapIndex(x, y);
 
     if(this.mapArray[mapIndex] === 1) {
-      cell.style.backgroundColor = 'black';
+      this.paintCell(cell, 'wall');
+    } else {
+      this.paintCell(cell, 'empty');
     }
 
     cell.addEventListener('mousemove', () => {
       if(this.isMouseDown) {
         if(this.isClearMode) {
-          cell.style.backgroundColor = '';
+          this.paintCell(cell, 'empty');
           this.mapArray[mapIndex] = 0;
         } else {
-          cell.style.backgroundColor = 'black';
+          this.paintCell(cell, 'wall');
           this.mapArray[mapIndex] = 1;
         }
       }
@@ -99,16 +144,14 @@ export default class MapEditor {
     if(this.startPoint && this.startPoint.length >= 2) {
       const startIndex = this.getMapIndex(this.startPoint[0], this.startPoint[1]);
       const startDot = this.container.children[startIndex];
-      startDot.style.backgroundColor = 'red';
-      startDot.setAttribute('nopaint', true);
+      this.paintCell(startDot, 'start');
     }
 
     // paint the end point
     if(this.endPoint) {
       const endIndex = this.getMapIndex(this.endPoint[0], this.endPoint[1]);
       const endDot = this.container.children[endIndex];
-      endDot.style.backgroundColor = 'blue';
-      endDot.setAttribute('nopaint', true);
+      this.paintCell(endDot, 'end');
     }
 
     return this.container;

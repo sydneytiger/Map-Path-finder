@@ -17,15 +17,10 @@ export default class PathFinder extends MapEditor {
     return (point[0] - this.endPoint[0]) ** 2 + (point[1] - this.endPoint[1]) ** 2;
   }
 
-  async searchProcess(index, optimse) {
-    const color = optimse ? 'lightskyblue' : 'lightgreen'
-    // 寻址过程渲染
+  async searchProcess(index, optimise) {
     await this.sleep(30);
-    const point = this.container.children[index];
-
-    if(!point.getAttribute('nopaint')) {
-      point.style.backgroundColor = color;
-    }
+    const cell = this.container.children[index];
+    this.paintCell(cell, optimise ? 'optimiseSearch': 'bfsSearch');
   }
 
   async findPath(optimise = false) {
@@ -60,16 +55,13 @@ export default class PathFinder extends MapEditor {
         const path = [];
 
         // 到达终点 开始通过记录的前驱节点反向推导出路径
-        const pathColor = optimise ? 'orange' : 'purple'
         while(x !== this.startPoint[0] || y !== this.startPoint[1]) {
           const index = this.getMapIndex(x, y);
           path.push(this.mapArray[index]);
           [x, y] = table[index];
           await this.sleep(30);
-          const pathDot = this.container.children[index];
-          if(!pathDot.getAttribute('nopaint')) {
-            pathDot.style.backgroundColor = pathColor;
-          }
+          const cell = this.container.children[index];
+          this.paintCell(cell, optimise ? 'optimisePath': 'bfsPath');
         }
 
         return path;
