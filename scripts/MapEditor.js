@@ -76,10 +76,9 @@ export default class MapEditor {
       empty: { color: 'lightgrey', level: 999 }
     }
 
-    const nextType = cellTypes[cellType];
-    if(!nextType) return;
-    
+    const nextType = cellTypes[cellType];    
     const prevType = cellTypes[cell.getAttribute('cell-type')];
+    if(!nextType || nextType === prevType) return;
 
     if(!prevType) {
       cell.setAttribute('cell-type', cellType);
